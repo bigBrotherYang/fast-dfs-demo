@@ -1,9 +1,9 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/db_books
-      username: root
-      password: root
+      url: jdbc:mysql://192.168.11.8:3306/yxc_database
+      username: xtkj
+      password: xtkj123
       driver-class-name: com.mysql.jdbc.Driver
   mvc:
     view:

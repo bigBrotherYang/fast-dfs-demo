@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,16 +22,16 @@ public class FdsController {
     private FdsService fdsService;
     @RequestMapping("/test")
     public String test(){
-        List<Fds> list = fdsService.list();
-        for (Fds f:list
-             ) {
-            System.out.println(f);
-        }
+//        List<Fds> list = fdsService.list();
+//        for (Fds f:list
+//             ) {
+//            System.out.println(f);
+//        }
         return "main";
     }
     @ResponseBody
     @RequestMapping("/shangchaun")
-    public String saveFile(MultipartFile multipartFile) throws IOException {
+    public String saveFile(@RequestParam(value="file",required=false)MultipartFile multipartFile) throws IOException {
         String[] fileAbsolutePath={};
         //获取文件名
         String fileName=multipartFile.getOriginalFilename();
@@ -47,12 +48,12 @@ public class FdsController {
         try {
             fileAbsolutePath = FastDFSClient.upload(file);  //upload to fastdfs
         } catch (Exception e) {
-            log.error("upload file Exception!",e);
+            log.error("upload file eption!Exc",e);
         }
         if (fileAbsolutePath==null) {
             log.error("upload file failed,please upload again!");
         }
-        String path=FastDFSClient.getTrackerUrl()+fileAbsolutePath[0]+ "/"+fileAbsolutePath[1];
+        String path=FastDFSClient.getTrackerUrl()+"/"+fileAbsolutePath[0]+ "/"+fileAbsolutePath[1];
         return path;
     }
 }
