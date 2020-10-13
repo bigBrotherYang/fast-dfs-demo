@@ -31,7 +31,7 @@ public class FdsController {
     }
     @ResponseBody
     @RequestMapping("/shangchaun")
-    public String saveFile(@RequestParam(value="file",required=false)MultipartFile multipartFile) throws IOException {
+    public Fds saveFile(@RequestParam(value="file",required=false)MultipartFile multipartFile) throws IOException {
         String[] fileAbsolutePath={};
         //获取文件名
         String fileName=multipartFile.getOriginalFilename();
@@ -54,6 +54,10 @@ public class FdsController {
             log.error("upload file failed,please upload again!");
         }
         String path=FastDFSClient.getTrackerUrl()+"/"+fileAbsolutePath[0]+ "/"+fileAbsolutePath[1];
-        return path;
+        Fds fds = new Fds();
+        fds.setFdtDis(fileName);
+        fds.setFdtVal(path);
+        fdsService.save(fds);
+        return fds;
     }
 }

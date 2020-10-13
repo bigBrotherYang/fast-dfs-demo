@@ -32,7 +32,7 @@
             processData:false,
             contentType:false,
             cache: false,
-            dataType:"text",
+            dataType:"json",
             success:function(data){
                 console.log(data)
             },
